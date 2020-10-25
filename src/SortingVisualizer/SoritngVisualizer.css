@@ -1,8 +1,8 @@
 .array-container {
-  position: absolute;
-  left: 35%;
-  top: 200px;
-  /* top: 100px; */
+  margin: auto;
+  width: 90%;
+  border: 3px solid green;
+  padding: 10px;
 }
   
 .array-bar {
@@ -10,7 +10,17 @@
   display: inline-block;
   margin: 0 1px;
 }
-.slider-class :root{
-  
-  bottom: 30px;
+.slider-class {
+  margin: auto;
+  width: 90%;
+  border: 3px solid green;
+  padding: 10px;
+
+}
+.slider-class1 {
+  margin: auto;
+  width: 90%;
+  border: 3px solid green;
+  padding: 10px;
+
 }

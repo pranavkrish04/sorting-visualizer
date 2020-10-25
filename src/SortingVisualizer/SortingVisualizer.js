@@ -1,9 +1,8 @@
 import React from 'react';
 import './SoritngVisualizer.css'
-import SortingAlgos from './SortingAlgos';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
-
+import bubbleSort from './SortingAlgos';
 
 class SortingVisualizer extends React.Component{
     
@@ -21,9 +20,12 @@ class SortingVisualizer extends React.Component{
     componentDidMount(){
         this.resetArray();
     }
-    resetOptions(algoName){
-        console.log("shit man");
-        this.setState({algoName: algoName, active: true});
+    callBubbleSort(algoName){
+        this.setState({algoName: algoName});
+        this.state.active = bubbleSort(this.state.array, this.state.speed);
+        document.getElementById('1button').disabled = true;
+        document.getElementById('2button').disabled = true;
+        this.state.active = true;
     }
     resetArray(){
         
@@ -37,20 +39,33 @@ class SortingVisualizer extends React.Component{
         this.setState({speed:value});
     }
 
+    handleChange1 = (event, value) => {
+        this.setState({length_array:value});
+        this.resetArray();
+    }
+
+    reset(){
+        this.resetArray();
+        document.getElementById('1button').disabled = false;
+        document.getElementById('2button').disabled = false;
+        this.state.active = false;
+    }
+
     render(){
         const stateVar = this.state;
+
         return(
-            <div>
-                <SortingAlgos array={this.state.array} speed={this.state.speed} algoName={this.state.algoName} active={this.state.active} />
+            <div>      
                 <button id="2button" onClick={() => this.resetArray()} style={{margin:"10px"}}>New Array</button>
-                <button id="1button" onClick={() => this.resetOptions("bubbleSort")} style={{margin:"10px"}}>Bubble Sort</button>
+                <button id="1button" onClick={() => this.callBubbleSort("bubbleSort")} style={{margin:"10px"}}>Bubble Sort</button>
+                <button id="3button" onClick={() => this.reset()} style={{margin:"10px"}}>Reset</button>
                 <Typography id="discrete-slider-small-steps" gutterBottom>
                 Speed
                 </Typography>
                 <div className="slider-class">
                     <Slider
                         defaultValue={1}
-                        getAriaValueText={valuetext}
+                        getAriaValueText={valuetext1}
                         aria-labelledby="discrete-slider-small-steps"
                         step={1}
                         marks
@@ -61,7 +76,23 @@ class SortingVisualizer extends React.Component{
                         valueLabelDisplay="auto"
                     /> 
                 </div>
-                
+                <Typography id="discrete-slider-small-steps" gutterBottom>
+                Array Length
+                </Typography>
+                <div className="slider-class1">
+                    <Slider
+                        defaultValue={1}
+                        getAriaValueText={valuetext2}
+                        aria-labelledby="discrete-slider-small-steps"
+                        step={1}
+                        marks
+                        disabled={this.state.active}
+                        onChange={this.handleChange1}
+                        min={10}
+                        max={30}
+                        valueLabelDisplay="auto"
+                    /> 
+                </div>
                 <div className="array-container">
                     {stateVar.array.map((val, idx) => (
                         <div 
@@ -78,6 +109,7 @@ class SortingVisualizer extends React.Component{
             </div>
             
         );
+        
     }
     
 }
@@ -89,8 +121,10 @@ function randomNumberGen(){
 }
 
   
-function valuetext(value) {
+function valuetext1(value) {
     return `${value}*x`;
 }
-
+function valuetext2(value) {
+    return `${value}*x`;
+}
 export default SortingVisualizer;
