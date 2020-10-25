@@ -1,0 +1,16 @@
+.array-container {
+  position: absolute;
+  left: 35%;
+  top: 200px;
+  /* top: 100px; */
+}
+  
+.array-bar {
+  width: 30px;
+  display: inline-block;
+  margin: 0 1px;
+}
+.slider-class :root{
+  
+  bottom: 30px;
+}
